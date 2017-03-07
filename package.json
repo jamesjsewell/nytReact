@@ -2,6 +2,7 @@
   "name": "reactDemo",
   "version": "0.1.0",
   "scripts": {
+    "cowsays": "echo 'the cow says moo'",
     "go": "npm run watch && npm run dev",
     "deploy": "git push origin master && git push heroku master",
     "dev": "NODE_ENV=development node --use_strict server.js",
