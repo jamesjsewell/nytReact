@@ -19,7 +19,7 @@ var app = function() {
 		},
 
 		handleHome: function() {
-			ReactDOM.render(<HomePage />,document.querySelector('.container'))
+			ReactDOM.render(<HomePage />,document.querySelector('.container'))//ReactDOM.render will mount a React component onto the actual DOM
 		},
 
 		handleRedirect: function() {
@@ -28,11 +28,29 @@ var app = function() {
 
 		handleNewsSearch: function(query) {
 			var collectionInstance = new ArticleCollection()
+			collectionInstance.fetch({
+				data:{
+					'q':query,
+					'api-key': collectionInstance._key
+				},
+
+			})
+			ReactDOM.render(<ArticlesPage 
+					cohort='awesome' 
+					student='kenji'
+					articleColl={collectionInstance}
+					/>, document.querySelector('.container')) 
+				
+
+		},
+		handleNewsSearchWithPromise: function(query) {
+			var collectionInstance = new ArticleCollection()
 			var promise = collectionInstance.fetch({
 				data:{
 					'q':query,
 					'api-key': collectionInstance._key
-				}
+				},
+				
 			}) 
 			//Wrong way
 			// promise.then(ReactDOM.render(<ArticlesPage cohort='awesome' student='kenji'/>, document.querySelector('.container')))	
@@ -40,6 +58,10 @@ var app = function() {
 
 			//Right way
 			promise.then(function(){
+				//ReactDom.render mounts the article page component
+				//any key value pairs that we assign to the component upon rendering
+				//blah blah blah
+				//sticking a javascript name into jsx
 				ReactDOM.render(<ArticlesPage 
 					cohort='awesome' 
 					student='kenji'
